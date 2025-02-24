@@ -3,6 +3,7 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  CakeIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Link from "next/link";
@@ -17,6 +18,7 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+  { name: "Pokemon", href: "/dashboard/pokemon", icon: CakeIcon },
 ];
 
 export default function NavLinks() {
