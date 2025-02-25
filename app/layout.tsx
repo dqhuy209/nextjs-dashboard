@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import "@/app/ui/global.css";
 import { inter } from "@/app/ui/fonts";
-import Providers from "@/app/context/providers";
+import Providers from "@/components/providers/providers";
 export const metadata: Metadata = {
   title: {
     template: "%s | Acme Dashboard",

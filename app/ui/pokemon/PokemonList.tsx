@@ -9,9 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PokemonApi } from "@/app/lib/dataPokemon";
-import { Pokemon } from "@/app/lib/pokemonSchema";
 import LoadingOverlay from "@/app/ui/pokemon/Loading";
+import { PokemonApi } from "@/app/dashboard/pokemon/lib/dataPokemon";
+import { Pokemon } from "@/app/dashboard/pokemon/schema/pokemonSchema";
+import { pokemonQueryOptions } from "@/app/dashboard/pokemon/hooks/usePokemonList";
 
 const api = new PokemonApi();
 
@@ -23,17 +24,7 @@ export default function PokemonList() {
     isFetchingNextPage,
     status,
     isFetching,
-  } = useInfiniteQuery({
-    queryKey: ["pokemon"],
-    queryFn: async ({ pageParam = 0 }) => {
-      const limit = 50;
-      const offset = pageParam;
-      const result = await api.fetchPokemonList(limit, offset);
-      return { ...result, nextPage: result.next ? offset + limit : null };
-    },
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-  });
-
+  } = useInfiniteQuery(pokemonQueryOptions());
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -56,10 +47,6 @@ export default function PokemonList() {
       }
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  if (status === "pending") {
-    return <LoadingOverlay />;
-  }
 
   const allPokemon: Pokemon[] =
     data?.pages.flatMap((page: any) => page.pokemon) || [];
