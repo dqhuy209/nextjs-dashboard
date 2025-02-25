@@ -1,10 +1,12 @@
 import PokemonList from "@/app/ui/pokemon/PokemonList";
-import React from "react";
+import React, { Suspense } from "react";
 
 export default function page() {
   return (
     <div>
-      <PokemonList />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PokemonList />
+      </Suspense>
     </div>
   );
 }
