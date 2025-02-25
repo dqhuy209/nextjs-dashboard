@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useSuspenseInfiniteQuery,
+} from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -24,7 +27,7 @@ export default function PokemonList() {
     isFetchingNextPage,
     status,
     isFetching,
-  } = useInfiniteQuery(pokemonQueryOptions());
+  } = useSuspenseInfiniteQuery(pokemonQueryOptions());
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
